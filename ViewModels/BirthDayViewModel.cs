@@ -2,11 +2,8 @@
 using Lab3Prokopchuk.Tools.Extensions;
 using Lab3Prokopchuk.Tools;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,11 +15,11 @@ namespace Lab3Prokopchuk.ViewModels
         #region Fields
         private Person _person;
         private string _name;
-        private string _surname;
+        private string _lastname;
         private string _email;
         private DateTime _date;
 
-        private string _information = "";
+        private string _userData = "";
         private bool _enableButton = true;
 
         private RelayCommand<object> _proceedCommand;
@@ -39,13 +36,13 @@ namespace Lab3Prokopchuk.ViewModels
                 OnPropertyChanged("Name");
             }
         }
-        public string Surname
+        public string Lastname
         {
-            get { return _surname; }
+            get { return _lastname; }
             set
             {
-                _surname = value;
-                OnPropertyChanged("Surname");
+                _lastname = value;
+                OnPropertyChanged("Lastname");
             }
         }
         public string Email
@@ -75,13 +72,13 @@ namespace Lab3Prokopchuk.ViewModels
                 OnPropertyChanged("Person");
             }
         }
-        public string Information
+        public string UserData
         {
-            get { return _information; }
+            get { return _userData; }
             set
             {
-                _information = value;
-                OnPropertyChanged("Information");
+                _userData = value;
+                OnPropertyChanged("UserData");
             }
         }
         public bool ProceedEnabled
@@ -101,14 +98,14 @@ namespace Lab3Prokopchuk.ViewModels
 
         private async void InfomationProceedCommand(object obj)
         {
-            Information = "";
+            UserData = "";
             try
             {
                 await Task.Run(() =>
                 {
                     Thread.Sleep(500);
-                    Person = new Person(Name, Surname, Email, Date);
-                    Information = Person.ToString();
+                    Person = new Person(Name, Lastname, Email, Date);
+                    UserData = Person.ToString();
                     Thread.Sleep(500);
                 });
             }
@@ -120,7 +117,7 @@ namespace Lab3Prokopchuk.ViewModels
         private bool CanExecute()
         {
             return !string.IsNullOrWhiteSpace(Name)
-                && !string.IsNullOrWhiteSpace(Surname)
+                && !string.IsNullOrWhiteSpace(Lastname)
                 && !string.IsNullOrWhiteSpace(Email)
                 && Date != DateTime.MinValue;
         }

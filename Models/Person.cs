@@ -200,6 +200,14 @@ namespace Lab3Prokopchuk.Models
             SunSign = CountSunZodiac();
             ChineseSign = CountChineseZodiac();
             IsBirthday = CheckIfBDToday();
+
+            if (!CheckIfValidBD())
+            {
+                if(CountAge() > 135)
+                    throw new PastBirthdayException("Your person is too old (should be <135)");
+                if(CountAge() < 0)
+                    throw new FutureBirthdayException("Your person is too young (should be >0)");
+            }
         }
 
         Person(string name, string lastname, string email)
